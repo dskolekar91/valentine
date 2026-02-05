@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255,255,255,0.15);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      max-width: 400px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.2em;
+    }
+    button {
+      margin: 15px;
+      padding: 12px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .yes {
+      background: #ff4d6d;
+      color: white;
+    }
+    .yes:hover {
+      background: #ff1f4a;
+    }
+    .no {
+      background: white;
+      color: #ff4d6d;
+    }
+    .no:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>💖 Hey You 💖</h1>
+    <p>
+      I was wondering...<br><br>
+      <strong>Will you be my Valentine? 💌</strong>
+    </p>
+    <button class="yes" onclick="yesClicked()">Yes 💕</button>
+    <button class="no" onclick="noClicked()">No 🙈</button>
+  </div>
+
+  <script>
+    function yesClicked() {
+      alert("Yaaay! 💖 You just made my day 🥰");
+    }
+    function noClicked() {
+      alert("Are you sure? 😢💔");
+    }
+  </script>
+</body>
+</html>
