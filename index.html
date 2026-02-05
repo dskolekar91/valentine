@@ -1,77 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Be My Valentine 💖</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
-      text-align: center;
-    }
-    .card {
-      background: rgba(255,255,255,0.15);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      max-width: 400px;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 1.2em;
-    }
-    button {
-      margin: 15px;
-      padding: 12px 25px;
-      font-size: 1em;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .yes {
-      background: #ff4d6d;
-      color: white;
-    }
-    .yes:hover {
-      background: #ff1f4a;
-    }
-    .no {
-      background: white;
-      color: #ff4d6d;
-    }
-    .no:hover {
-      transform: scale(1.1);
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>💖 Hey You 💖</h1>
-    <p>
-      I was wondering...<br><br>
-      <strong>Will you be my Valentine? 💌</strong>
-    </p>
-    <button class="yes" onclick="yesClicked()">Yes 💕</button>
-    <button class="no" onclick="noClicked()">No 🙈</button>
-  </div>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script>
-    function yesClicked() {
-      alert("Yaaay! 💖 You just made my day 🥰");
-    }
-    function noClicked() {
-      alert("Are you sure? 😢💔");
-    }
-  </script>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    border-radius: 22px;
+    padding: 40px 35px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    width: 90%;
+    max-width: 420px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 35px;
+  }
+
+  .buttons {
+    position: relative;
+    height: 90px;
+  }
+
+  button {
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .yes {
+    background: #ff2e63;
+    color: #fff;
+  }
+
+  .yes:hover {
+    transform: scale(1.08);
+  }
+
+  .no {
+    background: #fff;
+    color: #ff2e63;
+    position: absolute;
+    left: 140px;
+    top: 0;
+  }
+
+  .heart {
+    font-size: 18px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Hi 💖</h1>
+  <p>
+    Some people make days brighter without even trying.<br>
+    You’re one of them.<br><br>
+    Will you be my Valentine? 🌹
+  </p>
+
+  <div class="buttons">
+    <button class="yes" onclick="yesClicked()">Yes 💕</button>
+    <button class="no" id="noBtn">No 🙈</button>
+  </div>
+</div>
+
+<script>
+  const noBtn = document.getElementById('noBtn');
+  const container = document.querySelector('.buttons');
+
+  // Desktop: move when cursor comes
+  noBtn.addEventListener('mouseenter', moveNo);
+
+  // Mobile: move when finger touches
+  noBtn.addEventListener('touchstart', moveNo);
+
+  function moveNo() {
+    const maxX = container.clientWidth - noBtn.offsetWidth;
+    const maxY = container.clientHeight - noBtn.offsetHeight;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+  }
+
+  function yesClicked() {
+    document.body.innerHTML = `
+      <div style="
+        height:100vh;
+        background:linear-gradient(135deg,#ff758c,#ff7eb3);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        font-family:'Segoe UI',sans-serif;
+        color:#fff;
+      ">
+        <div>
+          <h1 style="font-size:2.6rem;">Yayyy! 💘</h1>
+          <p style="font-size:1.2rem;">
+            You just made this moment unforgettable ❤️<br>
+            Happy Valentine’s Day 🌹
+          </p>
+        </div>
+      </div>
+    `;
+  }
+</script>
+
 </body>
 </html>
