@@ -44,6 +44,7 @@
       display: flex;
       justify-content: center;
       gap: 20px;
+      position: relative;
     }
 
     button {
@@ -52,7 +53,7 @@
       font-size: 1rem;
       border-radius: 25px;
       cursor: pointer;
-      transition: transform 0.2s ease, background 0.2s ease;
+      transition: transform 0.2s ease, background 0.2s ease, left 0.25s ease, top 0.25s ease;
     }
 
     .yes {
@@ -68,7 +69,8 @@
     .no {
       background: #fff;
       color: #ff2e63;
-      position: relative;
+      position: relative; /* will become fixed when moved */
+      z-index: 20;
     }
 
     .heart {
@@ -98,7 +100,7 @@
 
     <div class="buttons">
       <button class="yes" onclick="yesClicked()">Yes 💕</button>
-      <button class="no" onclick="moveNo(this)">No 🙈</button>
+      <button class="no" id="noBtn">No 🙈</button>
     </div>
   </div>
 
@@ -126,21 +128,53 @@
     }
 
     function moveNo(btn) {
-      btn.style.position = "absolute";
+      // Make the button fixed so coordinates are relative to the viewport
+      btn.style.position = 'fixed';
 
       const padding = 20;
-      const btnWidth = btn.offsetWidth;
-      const btnHeight = btn.offsetHeight;
+      const rect = btn.getBoundingClientRect();
+      const btnWidth = rect.width;
+      const btnHeight = rect.height;
 
-      const maxX = window.innerWidth - btnWidth - padding;
-      const maxY = window.innerHeight - btnHeight - padding;
+      const maxX = Math.max(window.innerWidth - btnWidth - padding, padding);
+      const maxY = Math.max(window.innerHeight - btnHeight - padding, padding);
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+      const x = Math.random() * maxX + padding;
+      const y = Math.random() * maxY + padding;
 
       btn.style.left = x + "px";
       btn.style.top = y + "px";
     }
+
+    // Wire up hover/click/touch to make the "No" button evade
+    (function () {
+      const noBtn = document.getElementById('noBtn');
+      if (!noBtn) return;
+
+      // Move on hover (mouseenter), click, and touchstart for touch devices
+      noBtn.addEventListener('mouseenter', () => moveNo(noBtn));
+
+      noBtn.addEventListener('click', (e) => {
+        // Prevent the click from activating (optional) and move the button
+        e.preventDefault();
+        moveNo(noBtn);
+      });
+
+      noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        moveNo(noBtn);
+      }, {passive: false});
+
+      // Also ensure it moves away if the mouse is moving near it
+      document.addEventListener('mousemove', (e) => {
+        const rect = noBtn.getBoundingClientRect();
+        const dx = e.clientX - (rect.left + rect.width / 2);
+        const dy = e.clientY - (rect.top + rect.height / 2);
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        // If cursor comes within 80px, move it
+        if (dist < 80) moveNo(noBtn);
+      });
+    })();
 
     // Floating hearts
     for (let i = 0; i < 18; i++) {
